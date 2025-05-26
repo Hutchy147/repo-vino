@@ -24,7 +24,7 @@ def create():
             temperature=float(request.form['temperature']) if request.form['temperature'] else None,
             acidity=float(request.form['acidity']) if request.form['acidity'] else None,
             ph=float(request.form['ph']) if request.form['ph'] else None,
-            notes=request.form['notes']
+            notes=request.form.get('notes', '').strip()
         )
         db.session.add(fermentation)
         db.session.commit()
@@ -48,8 +48,8 @@ def update(id):
         fermentation.temperature = float(request.form['temperature']) if request.form['temperature'] else None
         fermentation.acidity = float(request.form['acidity']) if request.form['acidity'] else None
         fermentation.ph = float(request.form['ph']) if request.form['ph'] else None
-        fermentation.notes = request.form['notes']
-
+        fermentation.notes = request.form.get('notes', '').strip()
+        
         db.session.commit()
         return redirect(url_for('fermentation.index'))
     except Exception as e:

@@ -8,7 +8,7 @@ class Fermentation(db.Model):
     reception_id = db.Column(db.String(40), db.ForeignKey("grape_receptions.id"), nullable = False)
 
     start_date = db.Column(db.Date, nullable = False)
-    end_date = db.Column(db.Datte, nullable = False)
+    end_date = db.Column(db.Date, nullable = False)
     temperature = db.Column(db.Float, nullable = False)
     acidity = db.Column(db.Float, nullable = False)
     ph = db.Column(db.Float, nullable = False)
@@ -21,14 +21,15 @@ class Fermentation(db.Model):
         self.start_date = start_date
         self.end_date = end_date
         self.temperature = temperature
-        self.pf = ph
+        self.acidity = acidity
+        self.ph = ph
         self.notes = notes
 
     def serialize(self):
         return {
             "id": self.id,
             "reception_id": self.reception_id,
-            "start_date": self.start_date.isoformat() if self.start_date else None,
+            "start_date": self.start_date,
             "end_date": self.end_date,
             "temperature": self.temperature,
             "acidity": self.acidity,
